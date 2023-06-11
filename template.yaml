@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform:  AWS::Serverless-2016-10-31
+Description: Example to generate presigned url to upload fule to s3
+
+Resources:
+    BasicAWSApiGateway:
+      Type: AWS::Serverless::Api
+      Properties:
+        Name:  Api Gateway
+        StageName: Staging
+
+
+    MyLambdaFunction:
+      Type : AWS::Serverless::Function
+      Properties:
+        Handler : main.handler
+        Runtime : python3.10
+        CodeUri : .
+        Environment:
+          Variables:
+            BUCKET_NAME :  aws-orders
+        Events:
+          ApiGatewayMethod:
+            Type: Api
+            Properties:
+              RestApiId: !Ref BasicAWSApiGateway
+              Path: /upload
+              Method: POST
