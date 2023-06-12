@@ -27,16 +27,21 @@ def generate_presigned_url(key:str)-> str:
 
 
 def handler(event,context):
+    print(event)
     data = json.loads(event['body'])
+    print(data)
+    print(data['key'])
         
     response = {
         "statusCode": 201,
-        "body": {
+        "headers": {},
+        "body": json.dumps({
             "url": generate_presigned_url(data['key']),
             "expiretime": expire,
             "timestamp": str(datetime.datetime.now())
-        }
+        })
     }
+    print(response)
 
     return response
     

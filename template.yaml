@@ -16,6 +16,7 @@ Resources:
         Handler : main.handler
         Runtime : python3.10
         CodeUri : .
+        Timeout : 60
         Environment:
           Variables:
             BUCKET_NAME :  aws-orders
